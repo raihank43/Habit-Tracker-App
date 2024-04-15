@@ -2,7 +2,9 @@ import Cards from "@/components/Cards";
 import { HabitType } from "./types/habitSchemaType";
 
 async function fetchHabitsData() {
-  const res = await fetch("http://localhost:3001/habits");
+  const res = await fetch("http://localhost:3001/habits", {
+    cache: "no-cache"
+  });
 
   return (await res.json()) as HabitType[];
 }
@@ -14,8 +16,8 @@ export default async function Home() {
       <h1 className="font-bold mb-10 text-2xl">Habit List</h1>
 
       <div id="card-container" className=" flex flex-row gap-3 flex-wrap">
-        {habits.map((el) => {
-          return <Cards habit={el} />;
+        {habits.map((el, index) => {
+          return <Cards habit={el} key={index} />;
         })}
       </div>
     </div>
