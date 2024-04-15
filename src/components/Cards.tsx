@@ -1,21 +1,33 @@
-export default function Cards() {
+import { HabitType } from "@/app/types/habitSchemaType";
+
+export default function Cards({ habit }: { habit: HabitType }) {
   return (
     <div
       id="cards"
-      className="flex flex-col flex-wrap p-6 border min-w-64 xl:max-w-72 bg-white border-gray-200 shadow-lg duration-500 ease-in-out rounded-lg hover:scale-105"
+      className="flex flex-col flex-wrap p-6 border min-w-64 max-w-64 xl:max-w-72 bg-white border-gray-200 shadow-lg duration-500 ease-in-out rounded-lg hover:scale-105 flex-grow"
     >
-      <div className="flex items-center gap-10 justify-between">
-        <h1 className="font-bold text-2xl">Learning Javascript</h1>
-        <p className="bg-green-300 text-green-900 font-bold p-2 text-sm rounded-full">
-          Daily
+      <div className="flex items-start gap-10 justify-between">
+        <h1 className="font-bold text-2xl">{habit.name}</h1>
+        <p
+          className={
+            habit.interval == "daily"
+              ? "bg-green-300 text-green-900 font-bold p-2 text-sm rounded-full capitalize"
+              : habit.interval == "weekly"
+              ? "bg-blue-300 text-blue-900 font-bold p-2 text-sm rounded-full capitalize"
+              : habit.interval == "monthly"
+              ? "bg-purple-300 text-purple-900 font-bold p-2 text-sm rounded-full capitalize"
+              : ""
+          }
+        >
+          {habit.interval}
         </p>
       </div>
 
-      <div>
-        <p className="text-gray-500">Learning Javascript is fun</p>
+      <div className="py-5">
+        <p className="text-gray-500">{habit.description}</p>
       </div>
 
-      <div className="mt-10 flex justify-between">
+      <div className="mt-auto flex justify-between">
         <div className="flex flex-row items-center gap-2 bg-yellow-100 p-1 rounded-full">
           <svg
             className="h-4 w-4 text-yellow-700"
@@ -31,7 +43,7 @@ export default function Cards() {
             />
           </svg>
 
-          <p className="text-yellow-700 font-bold">1000</p>
+          <p className="text-yellow-700 font-bold">{habit.reward}</p>
         </div>
 
         <button className="p-2 bg-red-500 text-white rounded-lg flex items-center gap-1 hover:bg-red-200 duration-500 ease-in-out">
